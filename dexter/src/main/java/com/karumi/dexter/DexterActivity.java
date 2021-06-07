@@ -16,29 +16,33 @@
 
 package com.karumi.dexter;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.PermissionChecker;
-import android.view.WindowManager;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public final class DexterActivity extends Activity
-    implements ActivityCompat.OnRequestPermissionsResultCallback {
+public final class DexterActivity extends AppCompatActivity
+        implements ActivityCompat.OnRequestPermissionsResultCallback {
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     Dexter.onActivityReady(this);
     getWindow().addFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
   }
 
-  @Override protected void onDestroy() {
+  @Override
+  protected void onDestroy() {
     super.onDestroy();
     Dexter.onActivityDestroyed(this);
   }
@@ -50,6 +54,7 @@ public final class DexterActivity extends Activity
 
   @Override public void onRequestPermissionsResult(int requestCode, String[] permissions,
       int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     Collection<String> grantedPermissions = new LinkedList<>();
     Collection<String> deniedPermissions = new LinkedList<>();
 
